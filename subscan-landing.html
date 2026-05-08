@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#0a0a0f">
+<meta name="description" content="SubScan finds every forgotten subscription draining your account — and cancels them in one tap. Built for India.">
+<meta property="og:title" content="SubScan — Stop paying for subscriptions you forgot">
+<meta property="og:description" content="Find every recurring charge hiding in your bank statements. Cancel in one tap. Built for India 🇮🇳">
+<meta property="og:type" content="website">
+<title>SubScan — Stop Paying for Subscriptions You Forgot</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+
+<!-- ============================================================
+  MAILCHIMP SETUP INSTRUCTIONS
+  ============================================================
+  1. Go to mailchimp.com → Audience → Signup Forms → Embedded Forms
+  2. Copy your form action URL — looks like:
+     https://xxxxx.us21.list-manage.com/subscribe/post?u=XXXXX&id=XXXXX
+  3. Paste it into the MAILCHIMP_ACTION_URL variable below
+  4. That's it — emails go straight into your Mailchimp audience
+  ============================================================ -->
+
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #11111a;
+    --bg3: #18182a;
+    --accent: #7c6cff;
+    --accent2: #ff6c6c;
+    --accent3: #6cffb8;
+    --text: #f0f0fa;
+    --text2: #9898b8;
+    --text3: #5a5a7a;
+    --border: rgba(255,255,255,0.07);
+    --card: rgba(255,255,255,0.04);
+
+    /* Mobile touch targets */
+    --tap-min: 48px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(124,108,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124,108,255,0.03) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── NAV ── */
+  nav {
+    padding: 16px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+  }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .logo-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px var(--accent);
+    animation: pulse 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.6; transform: scale(0.85); }
+  }
+
+  .nav-badge {
+    font-size: 11px;
+    padding: 5px 11px;
+    border-radius: 99px;
+    background: rgba(124,108,255,0.12);
+    border: 1px solid rgba(124,108,255,0.25);
+    color: var(--accent);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 56px 0 48px;
+    text-align: center;
+    position: relative;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 50%;
+    transform: translateX(-50%);
+    width: min(600px, 150vw);
+    height: 500px;
+    background: radial-gradient(ellipse at center, rgba(124,108,255,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--accent3);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding: 6px 14px;
+    border-radius: 99px;
+    background: rgba(108,255,184,0.08);
+    border: 1px solid rgba(108,255,184,0.15);
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent3);
+    animation: pulse 1.5s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(30px, 8vw, 58px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    color: var(--text);
+    margin-bottom: 18px;
+  }
+
+  h1 .highlight {
+    background: linear-gradient(135deg, var(--accent) 0%, #b06cff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  h1 .strike {
+    position: relative;
+    color: var(--text2);
+  }
+
+  h1 .strike::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; top: 50%;
+    height: 3px;
+    background: var(--accent2);
+    transform: rotate(-1.5deg);
+  }
+
+  .hero-sub {
+    font-size: clamp(15px, 3.5vw, 18px);
+    color: var(--text2);
+    max-width: 500px;
+    margin: 0 auto 36px;
+    font-weight: 300;
+    line-height: 1.65;
+  }
+
+  /* ── MAILCHIMP FORM ── */
+  .mc-form-wrapper { max-width: 440px; margin: 0 auto; }
+
+  /* Hide Mailchimp's honeypot field */
+  #mce-EMAIL-LNAME-FNAME,
+  .mc-field-group.mc-hidden,
+  div[aria-hidden="true"] { display: none !important; }
+
+  .mc-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* On wider screens, lay input + button side by side */
+  @media (min-width: 480px) {
+    .mc-form { flex-direction: row; }
+  }
+
+  .email-input {
+    flex: 1;
+    width: 100%;
+    padding: 15px 18px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px; /* 16px prevents iOS zoom */
+    outline: none;
+    transition: border-color 0.2s;
+    min-height: var(--tap-min);
+    -webkit-appearance: none;
+  }
+
+  .email-input::placeholder { color: var(--text3); }
+  .email-input:focus { border-color: rgba(124,108,255,0.5); }
+
+  .btn-primary {
+    width: 100%;
+    padding: 15px 22px;
+    border-radius: 12px;
+    background: var(--accent);
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+    box-shadow: 0 0 24px rgba(124,108,255,0.3);
+    min-height: var(--tap-min);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  @media (min-width: 480px) {
+    .btn-primary { width: auto; }
+  }
+
+  .btn-primary:hover  { background: #9080ff; transform: translateY(-1px); box-shadow: 0 4px 32px rgba(124,108,255,0.45); }
+  .btn-primary:active { transform: translateY(0); }
+
+  .form-note {
+    font-size: 12px;
+    color: var(--text3);
+    margin-top: 10px;
+    margin-bottom: 36px;
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  .form-note span { color: var(--accent3); }
+
+  /* Mailchimp response messages */
+  #mce-success-response,
+  #mce-error-response {
+    display: none;
+    font-size: 13px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  #mce-success-response { background: rgba(108,255,184,0.08); border: 1px solid rgba(108,255,184,0.2); color: var(--accent3); }
+  #mce-error-response   { background: rgba(255,108,108,0.08); border: 1px solid rgba(255,108,108,0.2); color: var(--accent2); }
+
+  /* Custom success overlay (shown on redirect-free submit) */
+  .success-msg {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 20px;
+    border-radius: 12px;
+    background: rgba(108,255,184,0.08);
+    border: 1px solid rgba(108,255,184,0.2);
+    max-width: 440px;
+    margin: 0 auto 36px;
+    text-align: center;
+  }
+
+  .success-msg .check { font-size: 28px; }
+  .success-msg p      { color: var(--accent3); font-size: 15px; font-weight: 500; }
+  .success-msg small  { color: var(--text2); font-size: 13px; }
+
+  /* ── WAITLIST COUNT ── */
+  .waitlist-count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 52px;
+    flex-wrap: wrap;
+  }
+
+  .avatars { display: flex; }
+  .avatar {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 2px solid var(--bg);
+    margin-left: -8px;
+    font-size: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+  }
+  .avatar:first-child { margin-left: 0; }
+  .av1 { background: #7c6cff; }
+  .av2 { background: #ff6c6c; }
+  .av3 { background: #6cffb8; color: #0a0a0f; }
+  .av4 { background: #ffb86c; color: #0a0a0f; }
+
+  .waitlist-text { font-size: 13px; color: var(--text2); }
+  .waitlist-text strong { color: var(--text); }
+
+  /* ── PAIN VISUAL ── */
+  .leak-visual {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 22px 20px;
+    margin-bottom: 56px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .leak-visual::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 200px; height: 200px;
+    background: radial-gradient(ellipse at top right, rgba(255,108,108,0.07), transparent);
+    pointer-events: none;
+  }
+
+  .leak-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 16px;
+  }
+
+  .sub-list { list-style: none; }
+
+  .sub-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--border);
+    animation: slideIn 0.4s ease both;
+  }
+  .sub-item:last-child { border-bottom: none; }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-12px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+
+  .sub-item:nth-child(1) { animation-delay: 0.1s; }
+  .sub-item:nth-child(2) { animation-delay: 0.2s; }
+  .sub-item:nth-child(3) { animation-delay: 0.3s; }
+  .sub-item:nth-child(4) { animation-delay: 0.4s; }
+  .sub-item:nth-child(5) { animation-delay: 0.5s; }
+
+  .sub-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+
+  .sub-icon {
+    width: 34px; height: 34px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+
+  .sub-info { min-width: 0; }
+  .sub-name { font-size: 13px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sub-tag  { font-size: 11px; color: var(--text3); }
+
+  .sub-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+  .sub-amount { font-size: 13px; font-weight: 500; color: var(--text2); white-space: nowrap; }
+
+  .sub-badge {
+    font-size: 10px;
+    padding: 3px 7px;
+    border-radius: 99px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* Hide badge text on very small screens, keep pill colour */
+  @media (max-width: 360px) { .sub-badge { display: none; } }
+
+  .forgotten { background: rgba(255,108,108,0.15); color: var(--accent2); }
+  .overpriced { background: rgba(255,184,108,0.15); color: #ffb86c; }
+  .active { background: rgba(108,255,184,0.1); color: var(--accent3); }
+
+  .leak-total {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .leak-total-label { font-size: 12px; color: var(--text2); }
+  .leak-total-year  { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+  .leak-total-amount {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(18px, 5vw, 22px);
+    font-weight: 800;
+    color: var(--accent2);
+    white-space: nowrap;
+  }
+
+  /* ── SECTION SHARED ── */
+  .section-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(24px, 5vw, 36px);
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+    margin-bottom: 32px;
+  }
+
+  /* ── FEATURES ── */
+  .features { margin-bottom: 60px; }
+
+  .feat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+    gap: 12px;
+  }
+
+  .feat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .feat-card:hover {
+    border-color: rgba(124,108,255,0.3);
+    background: rgba(124,108,255,0.04);
+  }
+
+  .feat-icon  { font-size: 22px; margin-bottom: 10px; display: block; }
+  .feat-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 5px; }
+  .feat-desc  { font-size: 13px; color: var(--text2); line-height: 1.55; }
+
+  /* ── HOW IT WORKS ── */
+  .how { margin-bottom: 60px; }
+
+  .steps { display: flex; flex-direction: column; }
+
+  .step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .step:last-child { border-bottom: none; }
+
+  .step-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--accent);
+    background: rgba(124,108,255,0.1);
+    border: 1px solid rgba(124,108,255,0.2);
+    border-radius: 8px;
+    width: 34px; height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .step-title { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .step-desc  { font-size: 13px; color: var(--text2); }
+
+  /* ── TRUST ── */
+  .trust {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 20px;
+    margin-bottom: 52px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .trust-icon { font-size: 30px; flex-shrink: 0; line-height: 1; }
+
+  .trust-content h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .trust-content p { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+  .trust-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+
+  .trust-pill {
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 99px;
+    background: rgba(108,255,184,0.08);
+    border: 1px solid rgba(108,255,184,0.15);
+    color: var(--accent3);
+    font-weight: 500;
+  }
+
+  /* ── SMOKE TEST ── */
+  .smoke {
+    background: linear-gradient(135deg, rgba(124,108,255,0.08) 0%, rgba(176,108,255,0.05) 100%);
+    border: 1px solid rgba(124,108,255,0.2);
+    border-radius: 16px;
+    padding: 28px 20px;
+    margin-bottom: 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .smoke::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(124,108,255,0.1), transparent 60%);
+    pointer-events: none;
+  }
+
+  .smoke h3 { font-family: 'Syne', sans-serif; font-size: clamp(18px, 4vw, 22px); font-weight: 800; margin-bottom: 8px; }
+  .smoke p  { font-size: 14px; color: var(--text2); margin-bottom: 20px; line-height: 1.6; }
+
+  .btn-smoke {
+    display: inline-block;
+    width: 100%;
+    max-width: 360px;
+    padding: 15px 24px;
+    border-radius: 12px;
+    background: transparent;
+    color: var(--accent);
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    border: 2px solid rgba(124,108,255,0.4);
+    cursor: pointer;
+    transition: all 0.2s;
+    min-height: var(--tap-min);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .btn-smoke:hover  { background: rgba(124,108,255,0.1); border-color: var(--accent); transform: translateY(-1px); }
+  .btn-smoke:active { transform: translateY(0); }
+
+  .smoke-note { font-size: 12px; color: var(--text3); margin-top: 12px; line-height: 1.6; }
+
+  /* ── STICKY MOBILE CTA ── */
+  .sticky-cta {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    padding: 12px 20px max(12px, env(safe-area-inset-bottom));
+    background: rgba(10,10,15,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border);
+    z-index: 50;
+  }
+
+  .sticky-cta-inner {
+    display: flex;
+    gap: 10px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .sticky-email {
+    flex: 1;
+    padding: 13px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    outline: none;
+    min-height: var(--tap-min);
+    -webkit-appearance: none;
+  }
+
+  .sticky-email::placeholder { color: var(--text3); }
+  .sticky-email:focus { border-color: rgba(124,108,255,0.5); }
+
+  .sticky-btn {
+    padding: 13px 18px;
+    border-radius: 10px;
+    background: var(--accent);
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    min-height: var(--tap-min);
+    box-shadow: 0 0 20px rgba(124,108,255,0.3);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Show sticky bar on mobile only after scrolling past hero */
+  @media (max-width: 640px) {
+    .sticky-cta.visible { display: block; }
+    /* Add bottom padding so content isn't hidden behind bar */
+    body.has-sticky-bar { padding-bottom: 80px; }
+  }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 100;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0;
+  }
+
+  @media (min-width: 480px) {
+    .modal-overlay { align-items: center; padding: 24px; }
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: var(--bg2);
+    border: 1px solid rgba(124,108,255,0.25);
+    border-radius: 20px 20px 0 0;
+    padding: 28px 24px max(28px, env(safe-area-inset-bottom));
+    width: 100%;
+    text-align: center;
+    animation: modalUp 0.3s ease;
+  }
+
+  @media (min-width: 480px) {
+    .modal {
+      border-radius: 20px;
+      max-width: 400px;
+      padding: 36px;
+      animation: modalIn 0.25s ease;
+    }
+  }
+
+  @keyframes modalUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+  }
+
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.94) translateY(10px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  /* Mobile bottom sheet handle */
+  .modal-handle {
+    width: 36px; height: 4px;
+    border-radius: 99px;
+    background: var(--border);
+    margin: 0 auto 20px;
+  }
+
+  @media (min-width: 480px) { .modal-handle { display: none; } }
+
+  .modal-emoji { font-size: 36px; margin-bottom: 14px; }
+
+  .modal h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+
+  .modal p { font-size: 14px; color: var(--text2); margin-bottom: 22px; line-height: 1.6; }
+
+  .btn-modal-close {
+    padding: 14px 24px;
+    border-radius: 12px;
+    background: var(--accent);
+    color: #fff;
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    min-height: var(--tap-min);
+    transition: background 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .btn-modal-close:hover { background: #9080ff; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 24px 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .footer-logo { font-family: 'Syne', sans-serif; font-size: 16px; font-weight: 800; color: var(--text2); }
+
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links a { font-size: 13px; color: var(--text3); text-decoration: none; min-height: var(--tap-min); display: flex; align-items: center; }
+  .footer-links a:hover { color: var(--text2); }
+
+  .footer-flag { font-size: 13px; color: var(--text3); }
+
+  /* ── ANIMATIONS ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .d1 { animation-delay: 0.1s; }
+  .d2 { animation-delay: 0.2s; }
+  .d3 { animation-delay: 0.3s; }
+  .d4 { animation-delay: 0.4s; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo"><div class="logo-dot"></div>SubScan</div>
+    <span class="nav-badge">Early Access Open</span>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="heroSection">
+    <div class="hero-eyebrow">Built for India 🇮🇳</div>
+
+    <h1 class="fade-up d1">
+      You're probably paying<br>
+      for subscriptions you<br>
+      <span class="strike">forgot</span> you <span class="highlight">ever had.</span>
+    </h1>
+
+    <p class="hero-sub fade-up d2">
+      SubScan finds every recurring charge hiding in your bank statements and UPI history — and helps you cancel what you don't use in one tap.
+    </p>
+
+    <!-- ============================================================
+      MAILCHIMP FORM
+      Replace YOUR_MAILCHIMP_ACTION_URL with your form action URL.
+      Get it from: Mailchimp → Audience → Signup Forms → Embedded Forms
+      ============================================================ -->
+    <div class="mc-form-wrapper fade-up d3" id="formWrapper">
+      <form
+        action="YOUR_MAILCHIMP_ACTION_URL"
+        method="post"
+        id="mc-embedded-subscribe-form"
+        name="mc-embedded-subscribe-form"
+        class="mc-form"
+        novalidate
+        onsubmit="handleMCSubmit(event)"
+      >
+        <!-- Real email field -->
+        <input
+          type="email"
+          name="EMAIL"
+          id="mce-EMAIL"
+          class="email-input"
+          placeholder="your@email.com"
+          required
+          autocomplete="email"
+          inputmode="email"
+        />
+
+        <!-- Mailchimp anti-bot honeypot — DO NOT REMOVE -->
+        <div style="position:absolute;left:-5000px;" aria-hidden="true">
+          <input type="text" name="b_8cf0cc5b63e693bba8cf4615b_d1240fe9bb" tabindex="-1" value="">
+        </div>
+
+        <button type="submit" name="subscribe" id="mc-embedded-subscribe" class="btn-primary">
+          Get early access →
+        </button>
+      </form>
+
+      <!-- Mailchimp response messages -->
+      <div id="mce-success-response"></div>
+      <div id="mce-error-response"></div>
+
+      <p class="form-note">
+        Free forever for early members ·
+        <span>No spam, ever</span> ·
+        No bank login required
+      </p>
+    </div>
+
+    <!-- Success overlay (shown after submit) -->
+    <div class="success-msg" id="successMsg">
+      <span class="check">🎉</span>
+      <p>You're on the list!</p>
+      <small>We'll notify you the moment SubScan is ready. Share with a friend who's leaking money too.</small>
+    </div>
+
+    <!-- Waitlist count -->
+    <div class="waitlist-count fade-up d4">
+      <div class="avatars">
+        <div class="avatar av1">A</div>
+        <div class="avatar av2">R</div>
+        <div class="avatar av3">P</div>
+        <div class="avatar av4">S</div>
+      </div>
+      <span class="waitlist-text"><strong id="countDisplay">247 people</strong> already on the waitlist</span>
+    </div>
+  </section>
+
+  <!-- PAIN VISUAL -->
+  <div class="leak-visual fade-up">
+    <p class="leak-title">💸 What SubScan would find on a typical account</p>
+    <ul class="sub-list">
+      <li class="sub-item">
+        <div class="sub-left">
+          <div class="sub-icon" style="background:rgba(255,108,108,0.12)">🎬</div>
+          <div class="sub-info">
+            <p class="sub-name">Hotstar Premium</p>
+            <p class="sub-tag">Last watched: 4 months ago</p>
+          </div>
+        </div>
+        <div class="sub-right">
+          <span class="sub-amount">₹299/mo</span>
+          <span class="sub-badge forgotten">Forgotten</span>
+        </div>
+      </li>
+      <li class="sub-item">
+        <div class="sub-left">
+          <div class="sub-icon" style="background:rgba(108,184,255,0.12)">☁️</div>
+          <div class="sub-info">
+            <p class="sub-name">iCloud Storage 50GB</p>
+            <p class="sub-tag">75% unused</p>
+          </div>
+        </div>
+        <div class="sub-right">
+          <span class="sub-amount">₹75/mo</span>
+          <span class="sub-badge overpriced">Overpriced</span>
+        </div>
+      </li>
+      <li class="sub-item">
+        <div class="sub-left">
+          <div class="sub-icon" style="background:rgba(255,184,108,0.12)">🧘</div>
+          <div class="sub-info">
+            <p class="sub-name">Meditation App</p>
+            <p class="sub-tag">Free trial ended 7 months ago</p>
+          </div>
+        </div>
+        <div class="sub-right">
+          <span class="sub-amount">₹249/mo</span>
+          <span class="sub-badge forgotten">Forgotten</span>
+        </div>
+      </li>
+      <li class="sub-item">
+        <div class="sub-left">
+          <div class="sub-icon" style="background:rgba(108,255,184,0.12)">🎵</div>
+          <div class="sub-info">
+            <p class="sub-name">Spotify Premium</p>
+            <p class="sub-tag">Used daily — worth keeping</p>
+          </div>
+        </div>
+        <div class="sub-right">
+          <span class="sub-amount">₹119/mo</span>
+          <span class="sub-badge active">✓ Keep</span>
+        </div>
+      </li>
+      <li class="sub-item">
+        <div class="sub-left">
+          <div class="sub-icon" style="background:rgba(255,108,255,0.12)">📰</div>
+          <div class="sub-info">
+            <p class="sub-name">News App Subscription</p>
+            <p class="sub-tag">Signed up for election coverage</p>
+          </div>
+        </div>
+        <div class="sub-right">
+          <span class="sub-amount">₹199/mo</span>
+          <span class="sub-badge forgotten">Forgotten</span>
+        </div>
+      </li>
+    </ul>
+    <div class="leak-total">
+      <div>
+        <p class="leak-total-label">Wasted every month</p>
+        <p class="leak-total-year">₹8,664 per year — gone.</p>
+      </div>
+      <p class="leak-total-amount">₹747/mo</p>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <p class="section-label">What SubScan does</p>
+    <h2>Everything you need to<br>stop the leak.</h2>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <span class="feat-icon">🔍</span>
+        <p class="feat-title">Auto-detection</p>
+        <p class="feat-desc">Scans your email receipts and bank statements to surface every recurring charge — no manual entry needed.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">🔔</span>
+        <p class="feat-title">Pre-renewal alerts</p>
+        <p class="feat-desc">"Netflix renews in 3 days — ₹649. Keep it?" Decide before the money leaves your account.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">✂️</span>
+        <p class="feat-title">One-tap cancel</p>
+        <p class="feat-desc">We handle the cancellation — no hunting through settings or calling customer care.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">📈</span>
+        <p class="feat-title">Price hike tracker</p>
+        <p class="feat-desc">Get alerted when a service quietly raises its price. It happens more than you think.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">😴</span>
+        <p class="feat-title">Usage nudges</p>
+        <p class="feat-desc">"You haven't opened this app in 90 days. Pause it?" Based on real usage, not guesswork.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-icon">📊</span>
+        <p class="feat-title">Annual waste report</p>
+        <p class="feat-desc">See exactly how much you've paid across all subscriptions — shareable and brutally honest.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how">
+    <p class="section-label">How it works</p>
+    <h2>Up and running in<br>under 2 minutes.</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div>
+          <p class="step-title">Connect email or upload a statement</p>
+          <p class="step-desc">No bank password needed. SubScan reads Gmail/Outlook receipts, or you upload a PDF statement — your choice.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div>
+          <p class="step-title">See everything in one place</p>
+          <p class="step-desc">Every recurring charge, organised by amount, last used, and upcoming renewal date.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div>
+          <p class="step-title">Cancel, pause, or keep — one tap</p>
+          <p class="step-desc">We guide you through cancellation or do it for you. For what you love, we set a renewal reminder.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <div>
+          <p class="step-title">Set it and forget it</p>
+          <p class="step-desc">SubScan runs in the background and pings you before anything charges — no more surprises.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <div class="trust">
+    <div class="trust-icon">🔒</div>
+    <div class="trust-content">
+      <h3>Your data never leaves your control.</h3>
+      <p>We never ask for your bank login or UPI PIN. Use SubScan entirely through email scanning or manual upload. We charge a flat ₹99/month — no percentage of savings, no surprise fees.</p>
+      <div class="trust-pills">
+        <span class="trust-pill">✓ No bank login</span>
+        <span class="trust-pill">✓ Flat ₹99/mo</span>
+        <span class="trust-pill">✓ No % cut</span>
+        <span class="trust-pill">✓ One-tap unsubscribe</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SMOKE TEST -->
+  <div class="smoke">
+    <h3>Want AI-powered cancellation?</h3>
+    <p>Reserve priority access to SubScan Pro — our AI agent that cancels subscriptions, negotiates bills, and finds cheaper alternatives automatically.</p>
+    <button class="btn-smoke" onclick="openModal()">Reserve Pro access — ₹99/month →</button>
+    <p class="smoke-note">No charge until we launch · Cancel any time · Founding member pricing locked in forever</p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">SubScan</div>
+    <div class="footer-links">
+      <a href="#">Privacy</a>
+      <a href="#">Contact</a>
+    </div>
+    <span class="footer-flag">Made in India 🇮🇳</span>
+  </footer>
+
+</div><!-- /container -->
+
+<!-- STICKY MOBILE CTA -->
+<div class="sticky-cta" id="stickyCTA">
+  <div class="sticky-cta-inner">
+    <input
+      type="email"
+      class="sticky-email"
+      id="stickyEmail"
+      placeholder="your@email.com"
+      inputmode="email"
+      autocomplete="email"
+    />
+    <button class="sticky-btn" onclick="handleStickySubmit()">Join waitlist</button>
+  </div>
+</div>
+
+<!-- MODAL (smoke test) -->
+<div class="modal-overlay" id="modal" onclick="handleOverlayClick(event)">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-emoji">🚀</div>
+    <h4>We got you!</h4>
+    <p>You're on the Pro waitlist. We'll reach out before anyone else when AI-powered cancellation goes live. Founding member pricing (₹99/mo) is locked in for you.</p>
+    <button class="btn-modal-close" onclick="closeModal()">Got it, can't wait!</button>
+  </div>
+</div>
+
+<script>
+  // ─── CONFIG ───────────────────────────────────────────────
+  // Replace with your Mailchimp form action URL once you have it.
+  // Until then the form still works locally and shows success state.
+  const MAILCHIMP_ACTION_URL = 'https://gmail.us9.list-manage.com/subscribe/post?u=8cf0cc5b63e693bba8cf4615b&id=d1240fe9bb&f_id=0087c2e1f0';
+  // ──────────────────────────────────────────────────────────
+
+  let signupCount = 247;
+
+  // Animate count on load
+  let displayed = 232;
+  const countInterval = setInterval(() => {
+    displayed++;
+    document.getElementById('countDisplay').textContent = displayed + ' people';
+    if (displayed >= signupCount) clearInterval(countInterval);
+  }, 55);
+
+  // ── Mailchimp AJAX submit ──────────────────────────────────
+  function handleMCSubmit(e) {
+    e.preventDefault();
+    const email = document.getElementById('mce-EMAIL').value.trim();
+    if (!isValidEmail(email)) { showInputError('mce-EMAIL'); return; }
+
+    const form = e.target;
+
+    // Update form action URL dynamically (in case user didn't edit HTML)
+    if (MAILCHIMP_ACTION_URL !== 'YOUR_MAILCHIMP_ACTION_URL') {
+      // Use JSONP for Mailchimp cross-origin request
+      const url = MAILCHIMP_ACTION_URL.replace('/post?', '/post-json?') + '&c=mcCallback';
+      const params = new URLSearchParams(new FormData(form)).toString();
+      const script = document.createElement('script');
+      script.src = url + '&' + params;
+      window.mcCallback = function(data) {
+        script.remove();
+        if (data.result === 'success') {
+          showSuccess();
+        } else {
+          showMCError(data.msg);
+        }
+      };
+      document.body.appendChild(script);
+    } else {
+      // No Mailchimp URL yet — show success optimistically (dev mode)
+      showSuccess();
+    }
+  }
+
+  function showSuccess() {
+    signupCount++;
+    document.getElementById('countDisplay').textContent = signupCount + ' people';
+    document.getElementById('formWrapper').style.display = 'none';
+    const msg = document.getElementById('successMsg');
+    msg.style.display = 'flex';
+    // Hide sticky bar too
+    document.getElementById('stickyCTA').classList.remove('visible');
+    document.body.classList.remove('has-sticky-bar');
+  }
+
+  function showMCError(msg) {
+    const el = document.getElementById('mce-error-response');
+    el.style.display = 'block';
+    el.textContent = msg.replace(/<[^>]+>/g, ''); // strip HTML tags from MC message
+  }
+
+  function showInputError(inputId) {
+    const el = document.getElementById(inputId);
+    el.style.borderColor = 'rgba(255,108,108,0.6)';
+    el.focus();
+    setTimeout(() => { el.style.borderColor = ''; }, 2000);
+  }
+
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  // ── Sticky bar submit ─────────────────────────────────────
+  function handleStickySubmit() {
+    const email = document.getElementById('stickyEmail').value.trim();
+    if (!isValidEmail(email)) {
+      showInputError('stickyEmail');
+      return;
+    }
+    // Mirror email to main form and submit
+    document.getElementById('mce-EMAIL').value = email;
+    document.getElementById('mc-embedded-subscribe-form').dispatchEvent(new Event('submit'));
+  }
+
+  // ── Sticky bar visibility ─────────────────────────────────
+  const heroSection = document.getElementById('heroSection');
+  const stickyCTA   = document.getElementById('stickyCTA');
+
+  const observer = new IntersectionObserver((entries) => {
+    const heroVisible = entries[0].isIntersecting;
+    if (!heroVisible && window.innerWidth <= 640) {
+      stickyCTA.classList.add('visible');
+      document.body.classList.add('has-sticky-bar');
+    } else {
+      stickyCTA.classList.remove('visible');
+      document.body.classList.remove('has-sticky-bar');
+    }
+  }, { threshold: 0.1 });
+
+  observer.observe(heroSection);
+
+  // ── Modal ─────────────────────────────────────────────────
+  function openModal()  { document.getElementById('modal').classList.add('open'); }
+  function closeModal() { document.getElementById('modal').classList.remove('open'); }
+
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('modal')) closeModal();
+  }
+
+  // Close modal on ESC
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
